@@ -1,5 +1,6 @@
 import { Admin, Resource, ListGuesser, EditGuesser } from "react-admin";
 import jsonServerProvider from "ra-data-json-server";
+import { UserList } from "./UserList";
 
 const dataProvider = jsonServerProvider("https://jsonplaceholder.typicode.com");
 
@@ -7,7 +8,7 @@ const AdminApp = () => (
   <Admin dataProvider={dataProvider}>
     <Resource
       name="users"
-      list={ListGuesser}
+      list={UserList}
       edit={EditGuesser}
       recordRepresentation="name"
     />
