@@ -1,21 +1,30 @@
-const getOne = () => {
+import { GetOneParams, HttpError } from "react-admin";
+
+const data = [
+  {
+    id: "1:prod:resource1",
+    name: "resource1",
+  },
+  {
+    id: "resource2",
+    name: "resource2",
+  },
+];
+
+const getOne = (resource: string, params: GetOneParams) => {
+  const item = data.find((item) => item.id === params.id);
+  if (!item) {
+    throw new HttpError("Not found", 404);
+  }
   return Promise.resolve({
-    data: {
-      id: "1:prod:resource",
-      name: "resource",
-    },
+    data: item,
   });
 };
 
 const getList = () => {
   return Promise.resolve({
-    data: [
-      {
-        id: "1:prod:resource",
-        name: "resource",
-      },
-    ],
-    total: 1,
+    data,
+    total: data.length,
   });
 };
 
