@@ -7,6 +7,8 @@ import {
   DataProvider,
 } from "react-admin";
 import jsonServerProvider from "ra-data-json-server";
+import { ResourceEdit } from "./ResourceEdit";
+import resourceProvider from "../providers/resourceProvider";
 
 const userProvider = jsonServerProvider("https://jsonplaceholder.typicode.com");
 const postsProvider = jsonServerProvider(
@@ -15,6 +17,8 @@ const postsProvider = jsonServerProvider(
 
 const dataProvider = combineDataProviders((resource) => {
   switch (resource) {
+    case "resource":
+      return resourceProvider as DataProvider;
     case "users":
       return userProvider as DataProvider;
     case "posts":
@@ -26,6 +30,7 @@ const dataProvider = combineDataProviders((resource) => {
 
 const AdminApp = () => (
   <Admin dataProvider={dataProvider}>
+    <Resource name="resource" list={ListGuesser} edit={ResourceEdit} />
     <Resource
       name="users"
       list={ListGuesser}
